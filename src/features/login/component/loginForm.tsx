@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 
 import { loginAction } from "@/features/login/actions/auth.action";
 import { Toast } from "@/utils/Toast";
+import { sendRequest } from "@/utils/api";
 
 const formSchema = z.object({
   taxcode: z.string().min(1, "Vui lòng nhập mã số thuế"),
@@ -52,6 +53,23 @@ export function LoginForm() {
     } catch (e: any) {
       Toast({ message: "Có lỗi xảy ra, vui lòng thử lại.", type: "error" });
     }
+  };
+
+  const aoo = async () => {
+    console.log("[TEST] Calling /api/quick-view from Client Component...");
+    const result = await sendRequest({
+      url: "/api/quick-view",
+      method: "GET",
+      queryParams: {
+        endTime: "1798736399999",
+        serviceId: "VP",
+        startTime: "1767200400000",
+      },
+    });
+    console.log("[TEST] Response:", result);
+    // Lưu ý: Nếu token = null tức là bạn chưa đăng nhập.
+    // Client Component gọi /api/... thì browser tự gửi cookie session.
+    // Nhưng ở trang /login, user chưa có session nên token sẽ trống.
   };
 
   return (
@@ -137,7 +155,7 @@ export function LoginForm() {
             type="button"
             variant="outline"
             className="w-full sm:w-auto"
-            onClick={() => form.reset()}
+            onClick={() => aoo()}
             disabled={isSubmitting}
           >
             Hủy
