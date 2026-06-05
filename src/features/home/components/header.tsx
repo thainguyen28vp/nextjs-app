@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -24,7 +25,9 @@ export default function Header() {
 
   return (
     <header className="z-10 bg-background fixed top-0 left-0 right-0 z-10 w-full py-5 mx-auto container flex items-center justify-between">
-      <div className="font-semibold text-2xl">SellSpot</div>
+      {/* <div className="font-semibold text-2xl">SellSpot</div>
+       */}
+      <Image src="/assets/images/logo.png" width={180} height={80} alt="logo" />
       <nav>
         <ul className="flex items-center justify-center gap-18">
           <li>

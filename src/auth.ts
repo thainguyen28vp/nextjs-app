@@ -55,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     authorized({ auth, request: { nextUrl } }) {
       const pathname = nextUrl.pathname;
-      if (pathname === "/") {
+      if (pathname === "/" || pathname.startsWith("/assets/")) {
         return true;
       }
       return !!auth?.user?.id;

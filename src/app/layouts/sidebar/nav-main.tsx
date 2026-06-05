@@ -46,7 +46,9 @@ export function NavMain({
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/100">
             <PieChart className="text-sidebar-foreground/100" />
-            <span>More</span>
+            <Link href={"/dashboard"}>
+              <span>Báo cáo kế toán</span>
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
         {items.map((item) => (

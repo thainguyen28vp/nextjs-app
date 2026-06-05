@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { loginAction } from "@/features/login/actions/auth.action";
 import { Toast } from "@/utils/Toast";
 import { sendRequest } from "@/utils/api";
+import Image from "next/image";
 
 const formSchema = z.object({
   taxcode: z.string().min(1, "Vui lòng nhập mã số thuế"),
@@ -73,108 +74,120 @@ export function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-background px-4 py-8 sm:py-12">
-      <div className="w-full max-w-md rounded-2xl sm:rounded-3xl border border-border bg-card/60 p-6 sm:p-8 shadow-2xl backdrop-blur-sm">
-        <div className="flex flex-col space-y-2 text-center mb-6 sm:mb-8">
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
-            Đăng nhập
-          </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            Nhập thông tin tài khoản của bạn để tiếp tục
-          </p>
+    <div className="flex min-h-screen w-full items-center justify-center bg-background p-4 sm:p-8">
+      <div className="flex w-full max-w-4xl overflow-hidden rounded-2xl sm:rounded-3xl border border-border shadow-2xl bg-card">
+        <div className="relative hidden lg:block lg:w-1/2">
+          <Image
+            src="/assets/images/CadsERPv8.png"
+            fill
+            alt="Login Background"
+            className="object-contain"
+          />
         </div>
-        <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup className="space-y-4">
-            <Controller
-              name="taxcode"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-taxcode">
-                    Tax code
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-taxcode"
-                    aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    disabled={isSubmitting}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
+
+        {/* Phần Form */}
+        <div className="flex w-full flex-col justify-center bg-card/60 p-6 backdrop-blur-sm sm:p-12 lg:w-1/2">
+          <div className="mb-6 flex flex-col space-y-2 text-center sm:mb-8">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
+              Đăng nhập
+            </h1>
+            <p className="text-xs sm:text-sm text-muted-foreground">
+              Nhập thông tin tài khoản của bạn để tiếp tục
+            </p>
+          </div>
+          <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup className="space-y-4">
+              <Controller
+                name="taxcode"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-rhf-demo-taxcode">
+                      Tax code
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      id="form-rhf-demo-taxcode"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                      disabled={isSubmitting}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-rhf-demo-email">Email</FieldLabel>
+                    <Input
+                      {...field}
+                      id="form-rhf-demo-email"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                      type="email"
+                      disabled={isSubmitting}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="password"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-rhf-demo-password">
+                      Password
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      id="form-rhf-demo-password"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                      type="password"
+                      disabled={isSubmitting}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+          </form>
+          <div className="pt-8 flex flex-col-reverse sm:flex-row gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={() => aoo()}
+              disabled={isSubmitting}
+            >
+              Hủy
+            </Button>
+            <Button
+              type="submit"
+              form="form-rhf-demo"
+              className="w-full sm:flex-1"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Đang xử lý...
+                </>
+              ) : (
+                "Đăng nhập"
               )}
-            />
-            <Controller
-              name="email"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-email">Email</FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-email"
-                    aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    type="email"
-                    disabled={isSubmitting}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-password">
-                    Password
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-password"
-                    aria-invalid={fieldState.invalid}
-                    autoComplete="off"
-                    type="password"
-                    disabled={isSubmitting}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-        </form>
-        <div className="pt-8 flex flex-col-reverse sm:flex-row gap-3">
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full sm:w-auto"
-            onClick={() => aoo()}
-            disabled={isSubmitting}
-          >
-            Hủy
-          </Button>
-          <Button
-            type="submit"
-            form="form-rhf-demo"
-            className="w-full sm:flex-1"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Đang xử lý...
-              </>
-            ) : (
-              "Đăng nhập"
-            )}
-          </Button>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <main className="w-full flex-1">
         <SidebarTrigger />
         {children}
       </main>

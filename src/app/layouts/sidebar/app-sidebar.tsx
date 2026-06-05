@@ -55,19 +55,19 @@ const data = {
       title: "Orc Warrior Ground",
       url: "#",
       icon: SquareTerminal,
-      isActive: true,
+      isActive: false,
       items: [
         {
           title: "History",
-          url: "/",
+          url: "/page1",
         },
         {
           title: "Starred",
-          url: "/login",
+          url: "/page2",
         },
         {
           title: "Settings",
-          url: "#",
+          url: "/page3",
         },
       ],
     },
@@ -75,7 +75,7 @@ const data = {
       title: "Models",
       url: "#",
       icon: Bot,
-      isActive: true,
+      isActive: false,
       items: [
         {
           title: "Genesis",
@@ -83,7 +83,7 @@ const data = {
         },
         {
           title: "Explorer",
-          url: "/login",
+          url: "/loginsss",
         },
         {
           title: "Quantum",
