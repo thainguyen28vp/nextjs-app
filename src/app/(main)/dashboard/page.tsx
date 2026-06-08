@@ -23,14 +23,14 @@ export default async function DashboardPage() {
         </div>
 
         <div className="flex-1 min-w-[300px] h-fit">
-          <ViewStatisticInvoice />
+          {/* <ViewStatisticInvoice /> */}
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <RevenueBarChart />
         <ChartDT />
       </div>
-      <ViewChartTop />
+      <ViewChartTop /> */}
     </div>
   );
 }

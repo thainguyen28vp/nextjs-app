@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { sendRequest } from "@/utils/api";
+import https, { sendRequest } from "@/lib/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Banknote,
@@ -97,14 +97,11 @@ export function QuickView() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await sendRequest<{ data: QuickViewItem[] }>({
-          url: "/api/quick-view",
-          method: "GET",
-          queryParams: {
-            endTime: "1798736399999",
-            serviceId: "VP",
-            startTime: "1767200400000",
-          },
+        const res: any = await https.get(`/api/dashboard/v0/quick-view`, {
+          endTime: "1798736399999",
+          serviceId: "VP",
+          startTime: "1767200400000",
+
         });
         if (res?.data) {
           setData(res.data);

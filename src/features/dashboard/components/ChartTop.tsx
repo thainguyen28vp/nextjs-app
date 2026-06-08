@@ -13,7 +13,7 @@ import {
 import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
-import { sendRequest } from "@/utils/api";
+import { sendRequest } from "@/lib/api";
 
 interface ChartTopItem {
   CompanyTaxCode: string;

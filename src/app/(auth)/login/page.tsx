@@ -1,8 +1,26 @@
 import { auth } from "@/auth";
 import { LoginForm } from "@/features/login/component/loginForm";
-import { sendRequest } from "@/utils/api";
+import { sendRequest } from "@/lib/api";
 
 export default async function Login() {
+  const res = await fetch(
+
+    "https://jsonplaceholder.typicode.com/posts",
+
+    // {
+
+    //   next: {
+
+    //     revalidate: 60,
+
+    //   },
+
+    // }
+
+  );
+
+  const data = await res.json();
+  console.log("da0a0a0aaaaaaata", data)
   // const data = await sendRequest<{ items: any[] }>({
   //   url: `${process.env.NEXT_PUBLIC_APP_URL}/api/quick-view`,
   //   method: "GET",

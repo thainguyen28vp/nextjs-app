@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { sendRequest } from "./utils/api";
+import https, { sendRequest } from "./lib/api";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -11,19 +11,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         taxcode: {},
       },
       authorize: async (credentials) => {
-        const rs: any = await sendRequest({
-          url: "https://api-system-k8s.1business.vn/api/v0/user/login-desktop",
-          method: "POST",
-          headers: {
-            platform: "client-desktop",
-          },
-          body: {
-            gmail: credentials?.email,
-            password: credentials?.password,
-            taxcode: credentials?.taxcode,
-            uuid: credentials?.email,
-          },
-        });
+        const rs: any = await https.post(`${process.env.API_URL_DEV_SYSTEM}/api/v0/user/login-desktop`, {
+          gmail: credentials?.email,
+          password: credentials?.password,
+          taxcode: credentials?.taxcode,
+          uuid: credentials?.email,
+        },)
         if (rs?.code) {
           throw rs;
         }

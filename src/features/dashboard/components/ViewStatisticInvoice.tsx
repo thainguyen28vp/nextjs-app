@@ -1,6 +1,6 @@
 "use client";
 
-import { sendRequest } from "@/utils/api";
+import { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, RotateCcw, TrendingUp, TrendingDown } from "lucide-react";
