@@ -1640,6 +1640,37 @@
     postcss "^8.5.10"
     tailwindcss "4.3.0"
 
+"@tanstack/eslint-plugin-query@^5.101.0":
+  version "5.101.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.101.0.tgz#6a851c03797f56214d5fe97e4f3721aade58a648"
+  integrity sha512-wsfg821y4yw21J7nKI2oM5yyGSz3vASXqgWbmWCXZpnyY9ObLrBCcXivwZKj4YHF2fUWiqoOIRX2pbE79cf6gQ==
+  dependencies:
+    "@typescript-eslint/utils" "^8.58.1"
+
+"@tanstack/query-core@5.101.0":
+  version "5.101.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.101.0.tgz#45391ce143c270b7e7a55bd1a6696918f20782d1"
+  integrity sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow==
+
+"@tanstack/query-devtools@5.101.0":
+  version "5.101.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.101.0.tgz#807c5fae297a20f1b1cb8c3e0adddf9ff98e5068"
+  integrity sha512-MVqw17k08RQtGGLEL654+dX/btbX9p/8WjkznO//zusLTMaObxi3Q+MoFwGVkC9K3tqjn8qrrNhJevXx4fJTeQ==
+
+"@tanstack/react-query-devtools@^5.101.0":
+  version "5.101.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.101.0.tgz#b7894eff3fcd78c892e062dcf0a0c479667bf138"
+  integrity sha512-cpZA0+WqKXwrwMfiWZEGGF6QrIWVQFbhBtxqDF5sQsAfrFf47HIE6fiPbQU3wyAUEN2+7UNqLCQe7oG6m3f93w==
+  dependencies:
+    "@tanstack/query-devtools" "5.101.0"
+
+"@tanstack/react-query@^5.101.0":
+  version "5.101.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.101.0.tgz#2dd56c5b96ec816d6b6ec9cee5c80ed298974733"
+  integrity sha512-rLlJXSpkqfizLWgkR5+eLeIk0MvTx/meEIR7LRjxic+qxiQP8zVjq7BqQkiCMNLQBlLfuOLqqr6KO5GtrDlmSg==
+  dependencies:
+    "@tanstack/query-core" "5.101.0"
+
 "@ts-morph/common@~0.27.0":
   version "0.27.0"
   resolved "https://registry.npmjs.org/@ts-morph/common/-/common-0.27.0.tgz#e83a1bd7cbac054045c6246a7c4c99eab7692d46"
@@ -1848,7 +1879,7 @@
     tinyglobby "^0.2.15"
     ts-api-utils "^2.5.0"
 
-"@typescript-eslint/utils@8.60.1":
+"@typescript-eslint/utils@8.60.1", "@typescript-eslint/utils@^8.58.1":
   version "8.60.1"
   resolved "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.60.1.tgz#31cf566095602d9fe8ad91837d2eb520b8de762b"
   integrity sha512-h2MPBLoNtjc3qZWfY3Tl51yPorQ2McHn8pJfcMNTcIvrrZrr90Ykffit0yjrPFWQcRcUxzH20+6OcVdW4yHtUg==

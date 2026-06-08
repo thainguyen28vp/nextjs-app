@@ -15,7 +15,7 @@ import {
 
 import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import { sendRequest } from "@/utils/api";
+import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 
 interface ChartDTRaw {
@@ -93,15 +93,11 @@ export default function ChartDT() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await sendRequest<{ data: ChartDTRaw[] }>({
-          url: "/api/view-chart-dt",
-          method: "GET",
-          queryParams: {
-            endTime: "1798736399999",
-            serviceId: "VP",
-            startTime: "1767200400000",
-            chart: 1,
-          },
+        const res = await https.get(`/api/dashboard/view-chart-dt`, {
+          endTime: "1798736399999",
+          serviceId: "VP",
+          startTime: "1767200400000",
+          chart: 1,
         });
         if (res?.data) {
           setChartData(aggregateByMonth(res.data));

@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 
 import { loginAction } from "@/features/login/actions/auth.action";
 import { Toast } from "@/utils/Toast";
-import { sendRequest } from "@/utils/api";
+import { sendRequest } from "@/lib/api";
 import Image from "next/image";
 
 const formSchema = z.object({

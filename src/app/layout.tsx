@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import SessionProviderClient from "@/providers/SessionProviderClient";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
+import { QueryProvider } from "@/providers/QueryProvider";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -36,7 +37,9 @@ export default function RootLayout({
         >
           <SessionProviderClient>
             <TooltipProvider>
-              {children}
+              <QueryProvider>
+                {children}
+              </QueryProvider>
               <Toaster />
             </TooltipProvider>
           </SessionProviderClient>
