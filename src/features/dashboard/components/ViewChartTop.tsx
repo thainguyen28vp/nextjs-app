@@ -1,7 +1,7 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { sendRequest } from "@/lib/api";
+import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -35,17 +35,25 @@ export function ViewChartTop() {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const rs = await sendRequest<{ data: ChartTopItem[] }>({
-                    url: "/api/view-chart-top",
-                    method: "GET",
-                    queryParams: {
-                        endTime: "1798736399999",
-                        serviceId: "VP",
-                        startTime: "1767200400000",
-                        chart: 1,
-                        type: 1
-                    },
-                });
+                // const rs = await sendRequest<{ data: ChartTopItem[] }>({
+                //     url: "/api/view-chart-top",
+                //     method: "GET",
+                //     queryParams: {
+                //         endTime: "1798736399999",
+                //         serviceId: "VP",
+                //         startTime: "1767200400000",
+                //         chart: 1,
+                //         type: 1
+                //     },
+                // });
+                const rs = await https.get(`/api/dashboard/view-chart-top`, {
+                    endTime: "1798736399999",
+                    serviceId: "VP",
+                    startTime: "1767200400000",
+                    chart: 1,
+                    type: 1,
+                },
+                );
                 if (rs?.data) {
                     setData(rs.data);
                 }

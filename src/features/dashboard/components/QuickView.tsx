@@ -97,7 +97,7 @@ export function QuickView() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res: any = await https.get(`/api/dashboard/v0/quick-view`, {
+        const res: any = await https.get(`/api/dashboard/quick-view`, {
           endTime: "1798736399999",
           serviceId: "VP",
           startTime: "1767200400000",

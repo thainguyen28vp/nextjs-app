@@ -50,7 +50,7 @@ export async function proxyHandler(
   if (!baseUrl) {
     return NextResponse.json({ error: "Service not found" }, { status: 404 });
   }
-  const backendUrl = `${baseUrl}/${pathname}`;
+  const backendUrl = `${baseUrl}/${service}/${pathname}`;
 
 
   const headers = await buildHeaders(pathname, req.headers);
@@ -62,6 +62,8 @@ export async function proxyHandler(
 
 
   try {
+    console.log("Response data:", backendUrl);
+
     const data = await sendRequest({
       url: backendUrl,
       method,
@@ -70,13 +72,12 @@ export async function proxyHandler(
       queryParams: Object.fromEntries(searchParams.entries()),
     });
 
-    console.log("Response data:", data);
     return NextResponse.json(data);
   } catch (error: any) {
     console.error(`PROXY ERROR (Failed to call Backend ${backendUrl}):`, error);
-    return NextResponse.json({ 
-      error: error.message || "Lỗi gọi Backend", 
-      backendUrl 
+    return NextResponse.json({
+      error: error.message || "Lỗi gọi Backend",
+      backendUrl
     }, { status: 500 });
   }
 }

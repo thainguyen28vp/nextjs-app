@@ -1,6 +1,6 @@
 "use client";
 
-import { sendRequest } from "@/lib/api";
+import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, RotateCcw, TrendingUp, TrendingDown } from "lucide-react";
@@ -126,14 +126,19 @@ export function ViewStatisticInvoice() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await sendRequest<{ data: StatisticInvoice[] }>({
-          url: "/api/view-statistic-invoice",
-          method: "GET",
-          queryParams: {
-            serviceId: "VP",
-            startTime: "1767200400000",
-            endTime: "1798736399999",
-          },
+        // const res = await sendRequest<{ data: StatisticInvoice[] }>({
+        //   url: "/api/view-statistic-invoice",
+        //   method: "GET",
+        //   queryParams: {
+        //     serviceId: "VP",
+        //     startTime: "1767200400000",
+        //     endTime: "1798736399999",
+        //   },
+        // });
+        const res = await https.get(`/api/dashboard/view-statistic-invoice`, {
+          endTime: "1798736399999",
+          serviceId: "VP",
+          startTime: "1767200400000",
         });
         if (res?.data?.[0]) {
           setData(res.data[0]);

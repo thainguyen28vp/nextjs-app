@@ -13,7 +13,7 @@ import {
 import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
-import { sendRequest } from "@/lib/api";
+import https, { sendRequest } from "@/lib/api";
 
 interface ChartTopItem {
   CompanyTaxCode: string;
@@ -78,17 +78,14 @@ export default function ChartTop() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await sendRequest<{ data: ChartTopItem[] }>({
-          url: "/api/view-chart-top",
-          method: "GET",
-          queryParams: {
-            endTime: "1798736399999",
-            serviceId: "VP",
-            startTime: "1767200400000",
-            chart: 1,
-            type: 1,
-          },
-        });
+        const res = await https.get(`/api/dashboard/view-chart-top`, {
+          endTime: "1798736399999",
+          serviceId: "VP",
+          startTime: "1767200400000",
+          chart: 1,
+          type: 1,
+        },
+        );
         if (res?.data) {
           setChartData(res.data);
         }
