@@ -23,7 +23,11 @@ export const sendRequest = async <T>(props: IRequest) => {
 
   const options: any = {
     method: method,
-    headers: new Headers({ "content-type": "application/json", platform: "client-desktop", ...headers }),
+    headers: new Headers({
+      "content-type": "application/json",
+      platform: "client-desktop",
+      ...headers,
+    }),
     body: body ? JSON.stringify(body) : null,
     ...nextOption,
   };
@@ -87,60 +91,44 @@ export const sendRequest = async <T>(props: IRequest) => {
 //     }
 //   });
 // };
-const https = {
-  get: <T = any>(url: string, queryParams?: any) =>
+const httpClient = {
+  get: <T = any>(endpoint: string, queryParams?: any) =>
     sendRequest<T>({
-      url,
+      url: `/api/${endpoint}`,
       method: "GET",
       queryParams,
     }),
 
-  post: <T = any>(url: string, body?: any, queryParams?: any) =>
+  post: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url,
+      url: `/api/${endpoint}`,
       method: "POST",
       body,
       queryParams,
     }),
 
-  put: <T = any>(url: string, body?: any, queryParams?: any) =>
+  put: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url,
+      url: `/api/${endpoint}`,
       method: "PUT",
       body,
       queryParams,
     }),
 
-  patch: <T = any>(url: string, body?: any, queryParams?: any) =>
+  patch: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url,
+      url: `/api/${endpoint}`,
       method: "PATCH",
       body,
       queryParams,
     }),
 
-  delete: <T = any>(url: string, queryParams?: any) =>
+  delete: <T = any>(endpoint: string, queryParams?: any) =>
     sendRequest<T>({
-      url,
+      url: `/api/${endpoint}`,
       method: "DELETE",
       queryParams,
     }),
 };
 
-export default https
-
-// ============================================================================
-// 3. CÁC API NGHIỆP VỤ (SERVICES) - Bạn có thể tách các API này ra file riêng sau
-// ============================================================================
-
-// export const authApi = {
-//   login: (data: { username: string; password?: string; [key: string]: any }) => {
-//     return http.post("/auth/user/login", data);
-//   },
-// };
-
-// export const erpApi = {
-//   getDashboardChartDt: (queryParams: { startTime: string; endTime: string; serviceId: string }) => {
-//     return http.get("/erp/view-chart-dt", queryParams);
-//   },
-// };
+export default httpClient;

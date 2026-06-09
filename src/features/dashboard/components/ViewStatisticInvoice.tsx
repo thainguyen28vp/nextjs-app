@@ -4,6 +4,7 @@ import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, RotateCcw, TrendingUp, TrendingDown } from "lucide-react";
+import { useDashboardStatisticInvoiceQuery } from "@/hooks/use-dashboard-query";
 
 interface StatisticInvoice {
   SO_LUONG_BAN: number;
@@ -119,45 +120,18 @@ function LoadingSkeleton() {
 }
 
 export function ViewStatisticInvoice() {
-  const [data, setData] = useState<StatisticInvoice | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error, isLoading } = useDashboardStatisticInvoiceQuery({
+    endTime: "1798736399999",
+    serviceId: "VP",
+    startTime: "1767200400000",
+  });
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        // const res = await sendRequest<{ data: StatisticInvoice[] }>({
-        //   url: "/api/view-statistic-invoice",
-        //   method: "GET",
-        //   queryParams: {
-        //     serviceId: "VP",
-        //     startTime: "1767200400000",
-        //     endTime: "1798736399999",
-        //   },
-        // });
-        const res = await https.get(`/api/dashboard/view-statistic-invoice`, {
-          endTime: "1798736399999",
-          serviceId: "VP",
-          startTime: "1767200400000",
-        });
-        if (res?.data?.[0]) {
-          setData(res.data[0]);
-        }
-      } catch {
-        setError("Không thể tải dữ liệu.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-
-  if (loading) return <LoadingSkeleton />;
+  if (isLoading) return <LoadingSkeleton />;
 
   if (error) {
     return (
       <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-400">
-        {error}
+        {error?.message}
       </div>
     );
   }

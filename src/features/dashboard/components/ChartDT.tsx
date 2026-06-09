@@ -17,6 +17,10 @@ import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
+import {
+  useDashboardChartTopQuery,
+  useDashboardViewChartDtQuery,
+} from "@/hooks/use-dashboard-query";
 
 interface ChartDTRaw {
   MA_DV: string;
@@ -34,22 +38,6 @@ interface ChartDTMonthly {
 }
 
 /** Group nhiều bản ghi cùng tháng → 1 bản ghi tổng hợp */
-function aggregateByMonth(data: ChartDTRaw[]): ChartDTMonthly[] {
-  const map = new Map<number, ChartDTMonthly>();
-  for (const item of data) {
-    const m = item.THANG;
-    if (!map.has(m)) {
-      map.set(m, { month: `T${m}`, Balance: 0, SO_LUONG: 0 });
-    }
-    const entry = map.get(m)!;
-    entry.Balance += item.Balance;
-    entry.SO_LUONG += item.SO_LUONG;
-  }
-  // Sắp xếp theo tháng tăng dần
-  return Array.from(map.values()).sort(
-    (a, b) => parseInt(a.month.slice(1)) - parseInt(b.month.slice(1)),
-  );
-}
 
 function formatBalance(value: number): string {
   if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(1)}tỷ`;
@@ -87,31 +75,15 @@ const chartConfig = {
 };
 
 export default function ChartDT() {
-  const [chartData, setChartData] = useState<ChartDTMonthly[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, error, isLoading } = useDashboardViewChartDtQuery({
+    chart: 1,
+    type: 1,
+    endTime: "1798736399999",
+    startTime: "1767200400000",
+    serviceId: "VP",
+  });
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res = await https.get(`/api/dashboard/view-chart-dt`, {
-          endTime: "1798736399999",
-          serviceId: "VP",
-          startTime: "1767200400000",
-          chart: 1,
-        });
-        if (res?.data) {
-          setChartData(aggregateByMonth(res.data));
-        }
-      } catch {
-        // silent
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="rounded-2xl border border-border/50 bg-card p-4 shadow-sm space-y-3">
         <Skeleton className="h-5 w-40" />
@@ -120,8 +92,8 @@ export default function ChartDT() {
     );
   }
 
-  const maxBalance = Math.max(...chartData.map((d) => d.Balance), 1);
-  const maxQty = Math.max(...chartData.map((d) => d.SO_LUONG), 1);
+  const maxBalance = Math.max(...data?.map((d) => d.Balance), 1);
+  const maxQty = Math.max(...data?.map((d) => d.SO_LUONG), 1);
 
   return (
     <div className="rounded-2xl border border-border/50 bg-card shadow-sm">
@@ -134,7 +106,7 @@ export default function ChartDT() {
 
       <ChartContainer config={chartConfig} className="w-full min-h-[300px]">
         <ComposedChart
-          data={chartData}
+          data={data}
           margin={{ left: 6, right: 6 }}
           barGap={4}
           barCategoryGap="30%"

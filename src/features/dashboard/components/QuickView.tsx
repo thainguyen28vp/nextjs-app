@@ -15,6 +15,7 @@ import {
   ShoppingCart,
   Package,
 } from "lucide-react";
+import { useDashboardQuickViewQuery } from "@/hooks/use-dashboard-query";
 
 interface QuickViewItem {
   ItemId: string;
@@ -90,30 +91,11 @@ function QuickViewSkeleton() {
 }
 
 export function QuickView() {
-  const [data, setData] = useState<QuickViewItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res: any = await https.get(`/api/dashboard/quick-view`, {
-          endTime: "1798736399999",
-          serviceId: "VP",
-          startTime: "1767200400000",
-
-        });
-        if (res?.data) {
-          setData(res.data);
-        }
-      } catch {
-        setError("Không thể tải dữ liệu. Vui lòng thử lại.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
+  const { data, isLoading, error } = useDashboardQuickViewQuery({
+    endTime: "1798736399999",
+    serviceId: "VP",
+    startTime: "1767200400000",
+  });
 
   return (
     <section className="w-full space-y-3 bg-background rounded-3xl p-3 shadow-lg border border-border">
@@ -126,15 +108,17 @@ export function QuickView() {
 
       {error && (
         <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-400">
-          {error}
+          {error.message}
         </div>
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {loading ? (
+        {isLoading ? (
           <QuickViewSkeleton />
         ) : (
-          data.map((item) => <QuickViewCard key={item.ItemId} item={item} />)
+          data?.map((item: QuickViewItem) => (
+            <QuickViewCard key={item.ItemId} item={item} />
+          ))
         )}
       </div>
     </section>

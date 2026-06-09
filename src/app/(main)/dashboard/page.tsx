@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { QuickView } from "@/features/dashboard/components/QuickView";
 import { ViewStatisticInvoice } from "@/features/dashboard/components/ViewStatisticInvoice";
-import { ViewChartTop } from "@/features/dashboard/components/ViewChartTop";
-import RevenueBarChart from "@/features/dashboard/components/ChartTop";
+import { ViewInvoice } from "@/features/dashboard/components/ViewInvoice";
+import ChartTop from "@/features/dashboard/components/ChartTop";
 import ChartDT from "@/features/dashboard/components/ChartDT";
 
 export default async function DashboardPage() {
@@ -27,10 +27,10 @@ export default async function DashboardPage() {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <RevenueBarChart />
+        <ChartTop />
         <ChartDT />
       </div>
-      <ViewChartTop />
+      <ViewInvoice />
     </div>
   );
 }

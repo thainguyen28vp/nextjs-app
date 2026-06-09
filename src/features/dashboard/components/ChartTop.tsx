@@ -14,6 +14,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 import https, { sendRequest } from "@/lib/api";
+import { useDashboardChartTopQuery } from "@/hooks/use-dashboard-query";
 
 interface ChartTopItem {
   CompanyTaxCode: string;
@@ -72,33 +73,15 @@ const chartConfig = {
 };
 
 export default function ChartTop() {
-  const [chartData, setChartData] = useState<ChartTopItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, error, isLoading } = useDashboardChartTopQuery({
+    chart: 1,
+    type: 1,
+    endTime: "1798736399999",
+    startTime: "1767200400000",
+    serviceId: "VP",
+  });
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res = await https.get(`/api/dashboard/view-chart-top`, {
-          endTime: "1798736399999",
-          serviceId: "VP",
-          startTime: "1767200400000",
-          chart: 1,
-          type: 1,
-        },
-        );
-        if (res?.data) {
-          setChartData(res.data);
-        }
-      } catch {
-        // silent
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="rounded-2xl border border-border/50 bg-card p-4 shadow-sm space-y-3">
         <Skeleton className="h-5 w-40" />
@@ -118,7 +101,7 @@ export default function ChartTop() {
   }
 
   // Rút ngắn tên để vừa trục Y
-  const displayData = chartData.map((d) => ({
+  const displayData = data?.map((d: ChartTopItem) => ({
     ...d,
     shortName:
       d.TEN_CHI_TIEU.length > 22
