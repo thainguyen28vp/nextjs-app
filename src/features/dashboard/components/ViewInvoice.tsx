@@ -1,13 +1,11 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import https, { sendRequest } from "@/lib/api";
-import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import {
   useDashboardChartTopQuery,
   useDashboardViewInvoicesQuery,
-} from "@/hooks/use-dashboard-query";
+} from "@/features/dashboard/use-dashboard-query";
 
 interface ChartTopItem {
   CompanyTaxCode: string;

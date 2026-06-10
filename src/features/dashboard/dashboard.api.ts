@@ -1,4 +1,4 @@
-import httpClient from "../lib/api";
+import httpClient from "../../lib/api";
 
 export const dashboardApi = {
   getQuickView: async (params: any) => {

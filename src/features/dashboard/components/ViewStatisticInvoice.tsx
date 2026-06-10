@@ -4,7 +4,7 @@ import https, { sendRequest } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, RotateCcw, TrendingUp, TrendingDown } from "lucide-react";
-import { useDashboardStatisticInvoiceQuery } from "@/hooks/use-dashboard-query";
+import { useDashboardStatisticInvoiceQuery } from "@/features/dashboard/use-dashboard-query";
 
 interface StatisticInvoice {
   SO_LUONG_BAN: number;

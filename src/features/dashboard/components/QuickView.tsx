@@ -15,7 +15,7 @@ import {
   ShoppingCart,
   Package,
 } from "lucide-react";
-import { useDashboardQuickViewQuery } from "@/hooks/use-dashboard-query";
+import { useDashboardQuickViewQuery } from "@/features/dashboard/use-dashboard-query";
 
 interface QuickViewItem {
   ItemId: string;

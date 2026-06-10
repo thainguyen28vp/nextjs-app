@@ -14,7 +14,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 import https, { sendRequest } from "@/lib/api";
-import { useDashboardChartTopQuery } from "@/hooks/use-dashboard-query";
+import { useDashboardChartTopQuery } from "@/features/dashboard/use-dashboard-query";
 
 interface ChartTopItem {
   CompanyTaxCode: string;

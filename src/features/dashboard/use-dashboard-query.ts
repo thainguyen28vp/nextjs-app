@@ -1,4 +1,4 @@
-import { dashboardApi } from "@/services/dashboard.api";
+import { dashboardApi } from "@/features/dashboard/dashboard.api";
 import { useQuery } from "@tanstack/react-query";
 
 export const useDashboardQuickViewQuery = (params?: any) => {

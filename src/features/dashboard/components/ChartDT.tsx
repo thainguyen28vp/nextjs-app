@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import {
   useDashboardChartTopQuery,
   useDashboardViewChartDtQuery,
-} from "@/hooks/use-dashboard-query";
+} from "@/features/dashboard/use-dashboard-query";
 
 interface ChartDTRaw {
   MA_DV: string;
