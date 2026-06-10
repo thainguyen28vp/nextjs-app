@@ -92,40 +92,40 @@ export const sendRequest = async <T>(props: IRequest) => {
 //   });
 // };
 const httpClient = {
-  get: <T = any>(endpoint: string, queryParams?: any) =>
+  get: <T = any>(url: string, queryParams?: any) =>
     sendRequest<T>({
-      url: `/api/${endpoint}`,
+      url,
       method: "GET",
       queryParams,
     }),
 
-  post: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
+  post: <T = any>(url: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url: `/api/${endpoint}`,
+      url,
       method: "POST",
       body,
       queryParams,
     }),
 
-  put: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
+  put: <T = any>(url: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url: `/api/${endpoint}`,
+      url,
       method: "PUT",
       body,
       queryParams,
     }),
 
-  patch: <T = any>(endpoint: string, body?: any, queryParams?: any) =>
+  patch: <T = any>(url: string, body?: any, queryParams?: any) =>
     sendRequest<T>({
-      url: `/api/${endpoint}`,
+      url,
       method: "PATCH",
       body,
       queryParams,
     }),
 
-  delete: <T = any>(endpoint: string, queryParams?: any) =>
+  delete: <T = any>(url: string, queryParams?: any) =>
     sendRequest<T>({
-      url: `/api/${endpoint}`,
+      url,
       method: "DELETE",
       queryParams,
     }),
